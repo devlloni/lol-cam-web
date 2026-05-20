@@ -61,6 +61,36 @@ h1 {
   background: #000;
 }
 
+/* ── Mobile: layout vertical ─────────────────────────────────────────────── */
+@media (max-width: 768px), (orientation: portrait) {
+  body {
+    align-items: stretch;
+  }
+
+  h1 {
+    text-align: center;
+  }
+
+  #stage {
+    flex-direction: column;
+  }
+
+  #cam-canvas,
+  #panel-canvas {
+    width: 100vw !important;
+    height: auto !important;
+    display: block;
+  }
+
+  #gesture-label {
+    font-size: 1rem;
+  }
+
+  #debug-overlay {
+    font-size: 0.55rem;
+  }
+}
+
 #loading {
   position: fixed;
   inset: 0;

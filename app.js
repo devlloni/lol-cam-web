@@ -106,10 +106,14 @@ function onResults(results) {
   const vw = videoEl.videoWidth  || 640;
   const vh = videoEl.videoHeight || 480;
 
+  const mobile = window.innerWidth <= 768 || window.innerHeight > window.innerWidth;
+
   camCanvas.width   = vw;
   camCanvas.height  = vh;
-  panelCanvas.width  = Math.floor(vw * 0.42);
-  panelCanvas.height = vh;
+  // Mobile: panel debajo de la cámara, ancho completo, altura proporcional
+  // Desktop: panel al costado, 42% del ancho de la cámara
+  panelCanvas.width  = mobile ? vw : Math.floor(vw * 0.42);
+  panelCanvas.height = mobile ? Math.round(vw * 0.60) : vh;
   offCanvas.width   = vw;
   offCanvas.height  = vh;
 
