@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>lol-cam</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>lol-cam</h1>
+
+  <div id="loading">Cargando modelos...</div>
+
+  <div id="stage">
+    <div id="cam-wrap">
+      <canvas id="cam-canvas"></canvas>
+      <div id="gesture-label" style="display:none"></div>
+      <div id="debug-overlay"></div>
+    </div>
+    <canvas id="panel-canvas"></canvas>
+  </div>
+
+  <!-- Input video (hidden, used as MediaPipe source) -->
+  <video id="input-video" style="display:none" playsinline></video>
+
+  <!-- MediaPipe -->
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/holistic/holistic.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
+
+  <script src="gestures.js"></script>
+  <script src="app.js"></script>
+
+</body>
+</html>
