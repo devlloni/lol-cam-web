@@ -82,9 +82,23 @@ const camera = new Camera(videoEl, {
   width: 640,
   height: 480,
 });
-const loadingEl = document.getElementById('loading');
+const loadingEl   = document.getElementById('loading');
+const stepModels  = document.getElementById('step-models');
+const stepCamera  = document.getElementById('step-camera');
+const stepReady   = document.getElementById('step-ready');
+
+function setStep(el, state) {
+  // state: 'active' | 'done'
+  const icons = { active: '▶', done: '✓' };
+  el.className = state;
+  el.textContent = el.textContent.replace(/^./, icons[state]);
+}
+
+setStep(stepModels, 'active');
+
 camera.start().then(() => {
-  // Hide loading after first result arrives (handled in onResults)
+  setStep(stepModels, 'done');
+  setStep(stepCamera, 'active');
 });
 
 // ── Results callback ──────────────────────────────────────────────────────────
@@ -127,7 +141,11 @@ function onResults(results) {
   if (poseLm) poseLm.forEach(lm => { lm.x = 1 - lm.x; });
   if (faceLm) faceLm.forEach(lm => { lm.x = 1 - lm.x; });
 
-  if (loadingEl.style.display !== 'none') loadingEl.style.display = 'none';
+  if (loadingEl.style.display !== 'none') {
+    setStep(stepCamera, 'done');
+    setStep(stepReady, 'active');
+    setTimeout(() => { loadingEl.style.display = 'none'; }, 600);
+  }
 
   const gesto = detector.procesar(poseLm, leftHand, rightHand, faceLm, offCtx, vw, vh);
 
