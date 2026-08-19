@@ -8,14 +8,12 @@ const IMAGENES = {
 };
 const VIDEOS = {
   tiktok:  'gato.mp4',
-  brindis: 'kiti_brindando.mp4',
 };
 const NOMBRES = {
   cristiano:       'Cristiano beboteando',
   perro:           'Dog judging u_u',
   gato:            'Winking kitty!!!',
   tiktok:          'Gato TikTok !!!',
-  brindis:         'Kiti brindando !!!',
   lentes:          'Cristina con lentes !!!',
   maradona_v:      'Maradona campeon !!!',
   maradona_doble_v:'Maradona doble campeon !!!',

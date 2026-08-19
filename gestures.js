@@ -63,24 +63,7 @@ function esWinkingKitty(faceLm) {
   return (ed < 0.15 && ei > 0.25) || (ei < 0.15 && ed > 0.25);
 }
 
-// ── Gesto 4: Brindando ───────────────────────────────────────────────────────
-function esBrindando(poseLm, leftHand, rightHand) {
-  if (!poseLm) return false;
-  const nose = poseLm[0];
-  if (manoCercaCara(leftHand, nose, 0.22) || manoCercaCara(rightHand, nose, 0.22)) return false;
-
-  let brazoOk = false;
-  for (const [wIdx, eIdx] of [[15,13],[16,14]]) {
-    const wrist = poseLm[wIdx], elbow = poseLm[eIdx];
-    if (wrist.y < nose.y && dist(wrist, nose) > 0.22 && vis(poseLm, wIdx) && elbow.y > wrist.y) {
-      brazoOk = true; break;
-    }
-  }
-  if (!brazoOk) return false;
-  return [leftHand, rightHand].some(h => h && dedosAbiertos(h) <= 2);
-}
-
-// ── Gesto 5: TikTok gato ─────────────────────────────────────────────────────
+// ── Gesto 4: TikTok gato ─────────────────────────────────────────────────────
 function esTiktokGato(poseLm, leftHand, rightHand) {
   if (!poseLm) return false;
   const nose = poseLm[0];
@@ -101,7 +84,7 @@ function esTiktokGato(poseLm, leftHand, rightHand) {
   return false;
 }
 
-// ── Gesto 6: Lentes de sol ───────────────────────────────────────────────────
+// ── Gesto 5: Lentes de sol ───────────────────────────────────────────────────
 function esLentesSol(faceLm, offCtx, vw, vh) {
   if (!faceLm || !offCtx) return false;
   const lm = faceLm;
@@ -136,7 +119,7 @@ function esLentesSol(faceLm, offCtx, vw, vh) {
   return ratio < 0.85 && darkFrac > 0.55;
 }
 
-// ── Gestos 7/8: Maradona V y Doble V ─────────────────────────────────────────
+// ── Gestos 6/7: Maradona V y Doble V ─────────────────────────────────────────
 function esSeñalV(hand) {
   if (!hand) return false;
   return hand[8].y < hand[6].y && hand[12].y < hand[10].y &&
@@ -174,7 +157,7 @@ function debugGestos(poseLm, leftHand, rightHand, faceLm, contadores) {
 // ── Detector principal ────────────────────────────────────────────────────────
 class DetectorGestos {
   constructor() {
-    this._gestos = ['cristiano','perro','gato','tiktok','brindis','lentes','maradona_v','maradona_doble_v'];
+    this._gestos = ['cristiano','perro','gato','tiktok','lentes','maradona_v','maradona_doble_v'];
     this._cnt = Object.fromEntries(this._gestos.map(g => [g, 0]));
     this.activo = null;
   }
@@ -186,7 +169,6 @@ class DetectorGestos {
       perro:           esDogJudging(poseLm),
       gato:            esWinkingKitty(faceLm),
       tiktok:          esTiktokGato(poseLm, leftHand, rightHand),
-      brindis:         esBrindando(poseLm, leftHand, rightHand),
       lentes:          esLentesSol(faceLm, offCtx, vw, vh),
       maradona_v:      esMaradonaV(leftHand, rightHand),
       maradona_doble_v: esMaradonaDobleV(leftHand, rightHand),
