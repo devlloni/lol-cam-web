@@ -52,6 +52,9 @@ const offCtx    = offCanvas.getContext('2d', { willReadFrequently: true });
 const videoEl   = document.getElementById('input-video');
 const labelEl   = document.getElementById('gesture-label');
 const debugEl   = document.getElementById('debug-overlay');
+const liveDotEl = document.getElementById('live-dot');
+const resultTitleEl = document.getElementById('result-title');
+const DEFAULT_RESULT_TITLE = resultTitleEl.textContent;
 
 const detector  = new DetectorGestos();
 
@@ -111,9 +114,9 @@ function onResults(results) {
   camCanvas.width   = vw;
   camCanvas.height  = vh;
   // Mobile: panel debajo de la cámara, ancho completo, altura proporcional
-  // Desktop: panel al costado, 42% del ancho de la cámara
-  panelCanvas.width  = mobile ? vw : Math.floor(vw * 0.42);
-  panelCanvas.height = mobile ? Math.round(vw * 0.60) : vh;
+  // Desktop: panel al costado, cuadrado (mismo alto que la cámara)
+  panelCanvas.width  = mobile ? vw : vh;
+  panelCanvas.height = vh;
   offCanvas.width   = vw;
   offCanvas.height  = vh;
 
@@ -191,10 +194,15 @@ function renderPanel(gesto, vw, vh) {
 // ── Overlay rendering ─────────────────────────────────────────────────────────
 function renderLabel(gesto) {
   if (gesto) {
-    labelEl.textContent = NOMBRES[gesto] || gesto;
+    const nombre = NOMBRES[gesto] || gesto;
+    labelEl.textContent = nombre;
     labelEl.style.display = 'block';
+    resultTitleEl.textContent = nombre;
+    liveDotEl.classList.add('active');
   } else {
     labelEl.style.display = 'none';
+    resultTitleEl.textContent = DEFAULT_RESULT_TITLE;
+    liveDotEl.classList.remove('active');
   }
 }
 

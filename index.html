@@ -3,11 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>lol-cam</title>
+  <title>lol-cam — gestos por cámara</title>
+  <meta name="description" content="Hacé un gesto frente a la cámara y mirá qué meme te toca. Experimento con MediaPipe Holistic.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders:wght@600;700&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>lol-cam</h1>
 
   <div id="loading">
     <div id="loading-spinner"></div>
@@ -19,13 +24,103 @@
     </div>
   </div>
 
-  <div id="stage">
-    <div id="cam-wrap">
-      <canvas id="cam-canvas"></canvas>
-      <div id="gesture-label" style="display:none"></div>
-      <div id="debug-overlay"></div>
-    </div>
-    <canvas id="panel-canvas"></canvas>
+  <div class="page">
+
+    <header class="navbar">
+      <div class="navbar-inner">
+        <a class="logo" href="https://devlloni.me" target="_blank" rel="noopener">devllo<span class="dot">.</span></a>
+        <span class="navbar-label">lol&#8209;cam &middot; gestos por c&aacute;mara</span>
+      </div>
+    </header>
+
+    <main>
+      <section class="stage-section">
+        <div id="stage">
+
+          <div class="panel" id="cam-panel">
+            <div class="panel-header">
+              <span class="panel-title">C&aacute;mara</span>
+              <span class="live-dot" id="live-dot" aria-hidden="true"></span>
+            </div>
+            <div id="cam-wrap">
+              <canvas id="cam-canvas"></canvas>
+              <div id="gesture-label" style="display:none"></div>
+              <div id="debug-overlay"></div>
+            </div>
+          </div>
+
+          <div class="panel" id="result-panel">
+            <div class="panel-header">
+              <span class="panel-title" id="result-title">Esperando un gesto&hellip;</span>
+            </div>
+            <div id="panel-wrap">
+              <canvas id="panel-canvas"></canvas>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <section class="instructions">
+        <h2>C&oacute;mo usarla</h2>
+        <p class="instructions-intro">Prob&aacute; estos gestos frente a la c&aacute;mara. Cuando el sistema lo reconoce durante unos frames seguidos, aparece la imagen o el video asociado.</p>
+
+        <div class="gesture-grid">
+          <article class="gesture-card">
+            <span class="gesture-icon" aria-hidden="true">🤳</span>
+            <h3>Cristiano beboteando</h3>
+            <p>Dedo &iacute;ndice cerca de la boca.</p>
+          </article>
+
+          <article class="gesture-card">
+            <span class="gesture-icon" aria-hidden="true">🐶</span>
+            <h3>Dog judging</h3>
+            <p>Levant&aacute; una ceja bien marcada.</p>
+          </article>
+
+          <article class="gesture-card">
+            <span class="gesture-icon" aria-hidden="true">😉</span>
+            <h3>Winking kitty</h3>
+            <p>Guin&ntilde;o con un solo ojo.</p>
+          </article>
+
+          <article class="gesture-card">
+            <span class="gesture-icon" aria-hidden="true">🕺</span>
+            <h3>Gato TikTok</h3>
+            <p>Una mano cerca de la cara, la otra abierta al costado.</p>
+          </article>
+
+          <article class="gesture-card">
+            <span class="gesture-icon" aria-hidden="true">🥂</span>
+            <h3>Kiti brindando</h3>
+            <p>Brazo arriba, lejos de la cara, mano semicerrada.</p>
+          </article>
+
+          <article class="gesture-card">
+            <span class="gesture-icon" aria-hidden="true">🕶️</span>
+            <h3>Lentes de sol</h3>
+            <p>Pon&eacute;telos de verdad &mdash; se detectan por c&aacute;mara.</p>
+          </article>
+
+          <article class="gesture-card">
+            <span class="gesture-icon" aria-hidden="true">✌️</span>
+            <h3>Maradona V</h3>
+            <p>Se&ntilde;al de V con una sola mano.</p>
+          </article>
+
+          <article class="gesture-card">
+            <span class="gesture-icon" aria-hidden="true">🙌</span>
+            <h3>Maradona doble V</h3>
+            <p>Se&ntilde;al de V con las dos manos a la vez.</p>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>Hecho por <a href="https://devlloni.me" target="_blank" rel="noopener">devllo</a> &mdash; experimento con c&aacute;mara y <a href="https://developers.google.com/mediapipe" target="_blank" rel="noopener">MediaPipe</a></p>
+    </footer>
+
   </div>
 
   <!-- Input video (hidden, used as MediaPipe source) -->
